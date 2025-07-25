@@ -246,14 +246,15 @@
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
-          My <span>hobby</span>
+          My <span>HOBBY</span>
         </h2>
       </div>
       <div class="row">
         <div class="col-md-6 col-lg-3">
           <div class="box ">
-            <div class="img-box">
-              <img src="images/taiga_img01.jpg" alt="">
+            <div class="img-box image-carousel">
+              <img src="images/10969_LA.jpg" alt="" class="carousel-img active">
+              <img src="images/taiga_img01.jpg" alt="" class="carousel-img">
             </div>
             <div class="detail-box">
               <h4>
@@ -282,8 +283,8 @@
         </div>
         <div class="col-md-6 col-lg-3">
           <div class="box ">
-            <div class="img-box">
-              <img src="images/taiga_img02.jpg" alt="">
+            <div class="img-box image-carousel">
+              <img src="images/taiga_img02.jpg" alt="" class="carousel-img active">
             </div>
             <div class="detail-box">
               <h4>
@@ -305,8 +306,9 @@
         </div>
         <div class="col-md-6 col-lg-3">
           <div class="box ">
-            <div class="img-box">
-              <img src="images/f1.jpg" alt="">
+            <div class="img-box image-carousel">
+              <img src="images/f1.jpg" alt="" class="carousel-img active">
+              <img src="images/taiga_img03.jpg" alt="" class="carousel-img">
             </div>
             <div class="detail-box">
               <h4>
@@ -326,8 +328,10 @@
         </div>
         <div class="col-md-6 col-lg-3">
           <div class="box ">
-            <div class="img-box">
-              <img src="images/dog.png" alt="">
+            <div class="img-box image-carousel">
+              <img src="images/dog.png" alt="" class="carousel-img active">
+              <img src="images/IMG_4422.jpg" alt="" class="carousel-img">
+              <img src="images/IMG_4524.jpg" alt="" class="carousel-img">
             </div>
             <div class="detail-box">
               <h4>
@@ -413,5 +417,70 @@
 
 
 </body>
+
+<style>
+.image-carousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  height: auto;
+  overflow: hidden;
+}
+.carousel-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.7s cubic-bezier(0.4,2,0.6,1), transform 0.7s cubic-bezier(0.4,2,0.6,1);
+  backface-visibility: hidden;
+  z-index: 1;
+}
+.carousel-img.active {
+  opacity: 1;
+  transform: scale(1.08);
+  z-index: 2;
+  animation: bounceIn 0.7s;
+}
+.carousel-img.prev {
+  opacity: 0;
+  transform: scale(0.8);
+  z-index: 0;
+}
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.5) translateY(100%) rotateZ(-10deg); }
+  60% { opacity: 1; transform: scale(1.1) translateY(-10%) rotateZ(5deg); }
+  100% { opacity: 1; transform: scale(1.08) translateY(0) rotateZ(0deg); }
+}
+</style>
+<script>
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.image-carousel').forEach(function(carousel) {
+    const imgs = carousel.querySelectorAll('.carousel-img');
+    let idx = 0;
+    function nextImage() {
+      const prevIdx = idx;
+      imgs[prevIdx].classList.remove('active', 'prev');
+      imgs[prevIdx].classList.add('prev');
+      idx = (idx + 1) % imgs.length;
+      imgs[idx].classList.remove('active', 'prev');
+      imgs[idx].classList.add('active');
+      setTimeout(() => {
+        imgs[prevIdx].classList.remove('prev');
+      }, 700);
+      // 次の切り替えまでの時間を遅め（3.5〜5秒ランダム）に
+      const nextDelay = getRandomInt(3500, 5000);
+      setTimeout(nextImage, nextDelay);
+    }
+    // 最初の切り替えを遅めのランダムタイミングで開始
+    setTimeout(nextImage, getRandomInt(3500, 5000));
+  });
+});
+</script>
 
 </html>
