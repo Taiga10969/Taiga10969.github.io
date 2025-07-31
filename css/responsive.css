@@ -1,0 +1,381 @@
+/* Responsive Design for Mobile Devices */
+
+/* Extra small devices (phones, 576px and down) */
+@media (max-width: 575.98px) {
+  .layout_padding {
+    padding: 45px 0;
+  }
+  
+  .layout_padding2 {
+    padding: 35px 0;
+  }
+  
+  .layout_padding-top {
+    padding-top: 45px;
+  }
+  
+  .layout_padding-bottom {
+    padding-bottom: 45px;
+  }
+  
+  /* Header adjustments */
+  .header_section .header_top {
+    padding: 10px 0;
+  }
+  
+  .header_section .header_top .contact_nav a {
+    font-size: 14px;
+    margin-right: 15px;
+  }
+  
+  .header_section .header_bottom .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  .navbar-brand img {
+    width: 60px;
+  }
+  
+  .custom_nav-container .navbar-nav .nav-item .nav-link {
+    padding: 5px 10px;
+    margin: 5px 10px;
+    font-size: 14px;
+  }
+  
+  /* About section */
+  .about_section .row {
+    flex-direction: column;
+  }
+  
+  .about_section .col-md-6 {
+    margin-bottom: 30px;
+  }
+  
+  .about_section .img-box img {
+    max-width: 80%;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .about_section .detail-box p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  /* Treatment section */
+  .treatment_section .heading_container h2 {
+    font-size: 28px;
+  }
+  
+  .treatment_section .box {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .treatment_section .box .img-box {
+    width: 200px;
+    margin: 0 auto;
+  }
+  
+  /* Image carousel adjustments */
+  .image-carousel {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  /* Achievement section */
+  .image_text_wrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .image_container img {
+    max-width: 100% !important;
+    height: auto;
+  }
+  
+  /* Publications section */
+  .treatment_section ul {
+    padding-left: 20px;
+  }
+  
+  .treatment_section li {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  
+  /* Hobbies section */
+  .treatment_section .row {
+    margin: 0;
+  }
+  
+  .treatment_section .col-md-6,
+  .treatment_section .col-lg-3 {
+    padding: 0 10px;
+    margin-bottom: 30px;
+  }
+  
+  .treatment_section .box {
+    margin-top: 20px;
+  }
+  
+  .treatment_section .box .detail-box h4 {
+    font-size: 18px;
+  }
+  
+  .treatment_section .box .detail-box p {
+    font-size: 14px;
+  }
+  
+  /* Info section */
+  .info_section .info_top {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .info_section .info_top .info_logo {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  
+  .info_section .info_links_menu {
+    text-align: center;
+  }
+  
+  .info_section .info_contact {
+    text-align: center;
+  }
+  
+  /* Document section */
+  .image_container img {
+    max-width: 90% !important;
+  }
+  
+  figcaption {
+    font-size: 14px;
+    line-height: 1.4;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  /* Hobbies section improvements */
+  .treatment_section .box .detail-box p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .treatment_section .box .detail-box p a {
+    display: inline;
+    word-break: normal;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .layout_padding {
+    padding: 60px 0;
+  }
+  
+  .layout_padding2 {
+    padding: 50px 0;
+  }
+  
+  .about_section .img-box img {
+    max-width: 90%;
+  }
+  
+  .treatment_section .box .img-box {
+    width: 220px;
+  }
+  
+  .image_text_wrapper {
+    gap: 30px;
+  }
+  
+  .image_container img {
+    max-width: 80% !important;
+  }
+  
+  figcaption {
+    font-size: 15px;
+    line-height: 1.4;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .treatment_section .box .detail-box p {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .about_section .img-box img {
+    max-width: 85%;
+  }
+  
+  .treatment_section .box .img-box {
+    width: 230px;
+  }
+  
+  .image_container img {
+    max-width: 70% !important;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .about_section .img-box img {
+    max-width: 90%;
+  }
+  
+  .treatment_section .box .img-box {
+    width: 240px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .about_section .img-box img {
+    max-width: 100%;
+  }
+  
+  .treatment_section .box .img-box {
+    width: 250px;
+  }
+}
+
+/* General mobile improvements */
+@media (max-width: 767.98px) {
+  /* Typography adjustments */
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+  }
+  
+  /* Container adjustments */
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  /* Button adjustments */
+  .btn {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+  
+  /* Navigation improvements */
+  .navbar-collapse {
+    background-color: rgba(127, 127, 255, 0.95);
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  
+  /* Image responsiveness */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Text readability */
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  /* Link improvements */
+  a {
+    word-break: break-word;
+  }
+  
+  /* Form improvements */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  .btn, .nav-link, a {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Better spacing for touch */
+  .treatment_section .box {
+    margin-bottom: 30px;
+  }
+  
+  .image_container {
+    margin-bottom: 20px;
+  }
+  
+  /* Improve text readability on touch devices */
+  .treatment_section .box .detail-box p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  figcaption {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Print styles */
+@media print {
+  .header_section,
+  .footer_section,
+  .info_section {
+    display: none;
+  }
+  
+  .layout_padding,
+  .layout_padding2 {
+    padding: 20px 0;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+  }
+  
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+} 
