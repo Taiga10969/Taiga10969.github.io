@@ -127,6 +127,13 @@
     .navbar-nav .nav-link:hover {
       color: #007bff !important;
     }
+    
+    /* スマホ版でのPage linkタイトルの空白 */
+    @media (max-width: 768px) {
+      .page-link-title {
+        margin-top: 4rem !important;
+      }
+    }
   </style>
 
 </head>
@@ -499,7 +506,7 @@
           </div>
           <div class="col-md-6 col-lg-3">
             <div class="info_links">
-              <h5>
+              <h5 class="page-link-title">
                 Page link
               </h5>
               <div class="info_links_menu">
