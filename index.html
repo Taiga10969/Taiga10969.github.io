@@ -112,10 +112,25 @@
       .navbar-nav .nav-item {
         padding: 0.5rem 1rem;
         border-bottom: 1px solid rgba(255,255,255,0.2);
+        transition: all 0.3s ease;
       }
       
       .navbar-nav .nav-item:last-child {
         border-bottom: none;
+      }
+      
+      .navbar-nav .nav-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateX(10px);
+      }
+      
+      .navbar-nav .nav-link:hover {
+        transform: none;
+        box-shadow: none;
+      }
+      
+      .navbar-nav .nav-link::after {
+        display: none;
       }
     }
     
@@ -127,11 +142,45 @@
     /* ナビゲーションリンクのスタイル */
     .navbar-nav .nav-link {
       color: white !important;
-      transition: color 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      margin: 0 0.25rem;
     }
     
     .navbar-nav .nav-link:hover {
-      color: #007bff !important;
+      color: #ffffff !important;
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .navbar-nav .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ffffff, #e0e0ff);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+    
+    .navbar-nav .nav-link:hover::after {
+      width: 80%;
+    }
+    
+    /* アクティブなナビゲーションアイテムのスタイル */
+    .navbar-nav .nav-item.active .nav-link {
+      background-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar-nav .nav-item.active .nav-link::after {
+      width: 80%;
+      background: linear-gradient(90deg, #ffffff, #e0e0ff);
     }
     
     /* スマホ版でのPage linkタイトルの空白 */
@@ -139,6 +188,29 @@
       .page-link-title {
         margin-top: 4rem !important;
       }
+    }
+    
+    /* ナビゲーションアイテムのホバー時の追加エフェクト */
+    .navbar-nav .nav-item {
+      transition: all 0.3s ease;
+    }
+    
+    .navbar-nav .nav-item:hover {
+      transform: scale(1.05);
+    }
+    
+    /* ナビゲーションリンクのフォーカス状態 */
+    .navbar-nav .nav-link:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    }
+    
+    /* スムーズなアニメーションのための設定 */
+    .navbar-nav .nav-link,
+    .navbar-nav .nav-link::after,
+    .navbar-nav .nav-item {
+      will-change: transform, opacity, background-color;
     }
 
     .icon-hover {
@@ -231,6 +303,9 @@
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="http://www.mprg.cs.chubu.ac.jp/~masudataiga/Research/index.html"> research page (only member)</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#projects">My Projects</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#experience">My Experience</a>
@@ -328,7 +403,7 @@
                   arXiv-feed-SlackBot
                 </h4>
                 <p>
-                  直近で新たに公開されたarXiv論文から指定したキーワードを含む論文を検索し，Slackに通知することで研究活動のサポートします．<br>
+                  直近で新たに公開されたarXiv論文から指定したキーワードを含む論文を検索し，Slackに通知することで研究活動をサポートします．<br>
                   プログラムを公開していますので，どなたでも手軽にSlackBotを導入することができます．研究室のワークスペースに，個人のワークスペースに導入してみてください！
                 </p>
                 <a href="https://github.com/Taiga10969/arXiv-feed-SlackBot" class="project-btn github-btn">
