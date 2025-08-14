@@ -29,8 +29,14 @@
   <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
+  <!-- projects style -->
+  <link href="css/projects.css" rel="stylesheet" />
 
   <style>
+    body {
+      color: #0c0c0c !important;
+    }
+    
     .experience-section a {
       color: inherit;
       text-decoration: none;
@@ -182,6 +188,8 @@
       transition: all 0.3s ease;
       overflow: hidden;
     }
+    
+
   </style>
 
 </head>
@@ -311,37 +319,45 @@
       <div class="row justify-content-center">
         <div class="col-md-6 col-lg-4">
           <div class="box">
-            <div class="img-box">
-              <img src="images/arXiv-feed-SlackBot.png" alt="arXiv-feed-SlackBot" style="width: 80px; height: 80px; object-fit: contain;">
-            </div>
-            <div class="detail-box">
-              <h4>
-                arXiv-feed-SlackBot
-              </h4>
-              <p>
-                直近で新たに公開されたarXiv論文から指定したキーワードを含む論文を検索し，Slackに通知することで研究活動のサポートします．<br>
-                プログラムを公開していますので，どなたでも手軽にSlackBotを導入することができます．研究室のワークスペースに，個人のワークスペースに導入してみてください！
-              </p>
-              <a href="https://github.com/Taiga10969/arXiv-feed-SlackBot">
-                View Project
-              </a>
+            <div class="project-card">
+              <div class="img-box">
+                <img src="images/arXiv-feed-SlackBot.png" alt="arXiv-feed-SlackBot">
+              </div>
+              <div class="detail-box">
+                <h4>
+                  arXiv-feed-SlackBot
+                </h4>
+                <p>
+                  直近で新たに公開されたarXiv論文から指定したキーワードを含む論文を検索し，Slackに通知することで研究活動のサポートします．<br>
+                  プログラムを公開していますので，どなたでも手軽にSlackBotを導入することができます．研究室のワークスペースに，個人のワークスペースに導入してみてください！
+                </p>
+                <a href="https://github.com/Taiga10969/arXiv-feed-SlackBot" class="project-btn github-btn">
+                  <i class="fa fa-github"></i>
+                  View Project
+                </a>
+              </div>
             </div>
           </div>
         </div>
         <div class="col-md-6 col-lg-4">
           <div class="box">
-            <div class="img-box">
-              <img src="images/pymentor_favicon.png" alt="GitHub Icon" style="width: 80px; height: 80px; object-fit: contain;">
-            </div>
-            <div class="detail-box">
-              <h4>
-                PyMentor
-              </h4>
-              <p>
-                Python初学者向けの学習支援アプリケーションです．
-                初学者がPythonの課題を実施する際に，先生がそばに付き添ってくれているかのように，エラーの解説や，質問応答を行うチャット機能を搭載しています．
-              </p>
-              *Private Service
+            <div class="project-card">
+              <div class="img-box">
+                <img src="images/pymentor_favicon.png" alt="GitHub Icon">
+              </div>
+              <div class="detail-box">
+                <h4>
+                  PyMentor
+                </h4>
+                <p>
+                  Python初学者向けの学習支援アプリケーションです．
+                  初学者がPythonの課題を実施する際に，先生がそばに付き添ってくれているかのように，エラーの解説や，質問応答を行うチャット機能を搭載しています．
+                </p>
+                <button class="project-btn private-btn" disabled>
+                  <i class="fa fa-lock"></i>
+                  Private Project
+                </button>
+              </div>
             </div>
           </div>
         </div>
