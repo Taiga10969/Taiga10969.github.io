@@ -1,0 +1,21 @@
+{
+  "name": "Taiga MASUDA - Portfolio",
+  "short_name": "Taiga MASUDA",
+  "description": "Taiga MASUDA's personal portfolio website",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#7f7fff",
+  "theme_color": "#7f7fff",
+  "icons": [
+    {
+      "src": "images/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
