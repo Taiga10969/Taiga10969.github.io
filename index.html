@@ -464,7 +464,7 @@
       </div>
       <div class="schedule-toggle-container" style="text-align: center; margin: 20px 0;">
         <button class="schedule-toggle-btn" onclick="toggleSchedule()">
-          <span id="schedule-toggle-text">スケジュールを表示</span>
+          <span id="schedule-toggle-text">View Schedule</span>
           <i class="fa fa-calendar" id="schedule-toggle-icon"></i>
         </button>
       </div>
@@ -1007,12 +1007,12 @@ function toggleSchedule() {
   if (content.style.display === 'none') {
     content.style.display = 'block';
     button.classList.add('expanded');
-    toggleText.textContent = 'スケジュールを非表示';
+    toggleText.textContent = 'Hide Schedule';
     toggleIcon.className = 'fa fa-chevron-up';
   } else {
     content.style.display = 'none';
     button.classList.remove('expanded');
-    toggleText.textContent = 'スケジュールを表示';
+    toggleText.textContent = 'View Schedule';
     toggleIcon.className = 'fa fa-calendar';
   }
 }
