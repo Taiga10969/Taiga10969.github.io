@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <!-- <meta name="description" content="増田大河（Taiga MASUDA）のコンサート参戦履歴ページ。ONE OK ROCKなどのライブ参戦記録を地図と共に紹介。" /> -->
+
+  <title>Taiga MASUDA (Hobby page)</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="images/favicon.png">
+  <meta name="theme-color" content="#7f7fff">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- font awesome style -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+  <!-- projects style -->
+  <link href="css/projects.css" rel="stylesheet" />
+  <!-- hobbypage専用スタイル -->
+  <link href="css/hobbypage.css" rel="stylesheet" />
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+
+</head>
+
+<body>
+
+  <section class="about_section hobby-intro-section">
+    <div class="container">
+      <div class="hobby-intro-wrapper">
+        <div class="hobby-intro-image">
+          <div class="img-box">
+            <img src="images/10969_LA.jpg" alt="Concert Photo" class="hobby-intro-img">
+          </div>
+        </div>
+        <div class="hobby-intro-content">
+          <div class="hobby-intro-badge">趣味</div>
+          <div class="heading_container">
+            <h2>
+              My <span>Hobbies</span>
+            </h2>
+          </div>
+          <p>
+            このページでは、私の趣味である<strong>音楽鑑賞</strong>と<strong>野球観戦</strong>の自己満足な記録ページです。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="treatment_section layout_padding experience-section concert-history-section" id="experience">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">コンサート参戦</div>
+      <div class="heading_container heading_center">
+        <h2 id="history-title" class="section-title">
+          My <span>Concert Attendance History</span>
+        </h2>
+        <p class="section-subtitle" id="history-subtitle">Since 2021</p>
+      </div>
+    </div>
+      
+      <div class="concert-map-layout">
+        <div class="concert-list-container">
+          <div id="concert-history-container"></div>
+    </div>
+
+        <div class="map-wrapper">
+          <div id="map" class="map-container"></div>
+    </div>
+    </div>
+    </div>
+</section>
+
+  <!-- 野球観戦履歴セクション -->
+  <section class="treatment_section layout_padding baseball-history-section" id="baseball-history">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">野球観戦</div>
+        <div class="heading_container heading_center">
+          <h2 id="baseball-history-title" class="section-title">
+            <span>Baseball Game Attendance History</span>
+          </h2>
+          <p class="section-subtitle" id="baseball-history-subtitle"></p>
+        </div>
+      </div>
+      <div id="baseball-year-tabs" class="baseball-year-tabs"></div>
+      <div id="baseball-history-container"></div>
+    </div>
+</section>
+
+
+
+
+</body>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""></script>
+
+<!-- Config Data -->
+<script src="hobby_config.js"></script>
+
+<script>
+let mapInstance = null;
+let initialMapSettings = null;
+
+// 地図スタイルに応じたタイルレイヤー設定を取得
+function getTileLayerConfig(style, maxZoom, noWrap) {
+  const baseOptions = { maxZoom };
+  if (noWrap) baseOptions.noWrap = true;
+  
+  const styles = {
+    'osm': {
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      options: {
+        ...baseOptions,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }
+    },
+    'cartodb-positron': {
+      url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+      options: {
+        ...baseOptions,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+      }
+    },
+    'cartodb-darkmatter': {
+      url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+      options: {
+        ...baseOptions,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+      }
+    },
+    'stamen-terrain': {
+      url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.png',
+      options: {
+        ...baseOptions,
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: 'abcd',
+        maxZoom: 18
+      }
+    },
+    'stamen-toner': {
+      url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png',
+      options: {
+        ...baseOptions,
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: 'abcd',
+        maxZoom: 20
+      }
+    },
+    'esri-worldimagery': {
+      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      options: {
+        ...baseOptions,
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+        maxZoom: 19
+      }
+    }
+  };
+  
+  return styles[style] || styles['osm'];
+}
+
+// コンサート履歴の動的レンダリング
+function renderConcertHistory() {
+  const container = document.getElementById('concert-history-container');
+  const titleElement = document.getElementById('history-title');
+  
+  if (titleElement) {
+    titleElement.innerHTML = `My <span>Concert Attendance History</span>`;
+  }
+  const subtitleElement = document.getElementById('history-subtitle');
+  if (subtitleElement && CONCERT_HISTORY.since) {
+    subtitleElement.textContent = `Since ${CONCERT_HISTORY.since}`;
+  }
+  
+  if (!container) return;
+  container.innerHTML = '';
+  
+  // リストからマウスが離れたときに地図をリセット（リスト内での移動ではリセットしない）
+  container.addEventListener('mouseleave', e => {
+    if (!mapInstance || !initialMapSettings) return;
+    
+    const relatedTarget = e.relatedTarget;
+    if (relatedTarget && container.contains(relatedTarget)) return;
+    
+    mapInstance.setView(
+      [initialMapSettings.center.lat, initialMapSettings.center.lng],
+      initialMapSettings.zoom,
+      { animate: true, duration: 0.5 }
+    );
+    
+    mapInstance.eachLayer(layer => {
+      if (layer instanceof L.Marker) layer.closePopup();
+    });
+  });
+  
+  CONCERT_HISTORY.tours.forEach(tour => {
+    const tourDiv = document.createElement('div');
+    tourDiv.className = 'tour-item';
+    
+    const tourName = document.createElement('div');
+    tourName.className = 'tour-name';
+    tourName.textContent = tour.name;
+    
+    const concertsList = document.createElement('ul');
+    concertsList.className = 'concerts-list';
+    
+    tour.concerts.forEach(concert => {
+      const concertItem = document.createElement('li');
+      concertItem.className = 'concert-item';
+      
+      concertItem.setAttribute('data-lat', concert.location.lat);
+      concertItem.setAttribute('data-lng', concert.location.lng);
+      
+      const concertDate = document.createElement('span');
+      concertDate.className = 'concert-date';
+      concertDate.textContent = concert.fullText;
+      
+      concertItem.addEventListener('mouseenter', function() {
+        if (!mapInstance) return;
+        
+        const lat = parseFloat(this.getAttribute('data-lat'));
+        const lng = parseFloat(this.getAttribute('data-lng'));
+        const hoverZoom = CONCERT_HISTORY.mapSettings?.hoverZoom || 12;
+        
+        mapInstance.setView([lat, lng], hoverZoom, {
+          animate: true,
+          duration: 0.5
+        });
+        
+        mapInstance.eachLayer(layer => {
+          if (layer instanceof L.Marker) {
+            const markerLat = layer.getLatLng().lat;
+            const markerLng = layer.getLatLng().lng;
+            if (Math.abs(markerLat - lat) < 0.0001 && Math.abs(markerLng - lng) < 0.0001) {
+              layer.openPopup();
+            }
+          }
+        });
+      });
+      
+      concertItem.appendChild(concertDate);
+      concertsList.appendChild(concertItem);
+    });
+    
+    tourDiv.appendChild(tourName);
+    tourDiv.appendChild(concertsList);
+    container.appendChild(tourDiv);
+  });
+}
+
+// 地図の初期化とマーカー配置
+function initMap() {
+  const mapSettings = CONCERT_HISTORY.mapSettings || {};
+  const initialZoom = mapSettings.initialZoom || 4;
+  const initialCenter = mapSettings.initialCenter || { lat: 36.2048, lng: 138.2529 };
+  const maxZoom = mapSettings.maxZoom || 19;
+  const worldCopyJump = mapSettings.worldCopyJump ?? true;
+  const limitMapToSingleWorld = mapSettings.limitMapToSingleWorld ?? false;
+  
+  initialMapSettings = { center: initialCenter, zoom: initialZoom };
+  
+  const mapOptions = limitMapToSingleWorld ? {
+    maxBounds: [[-90, -180], [90, 180]],
+    minZoom: 2
+  } : {};
+  
+  mapInstance = L.map('map', mapOptions).setView([initialCenter.lat, initialCenter.lng], initialZoom);
+  const map = mapInstance;
+  
+  // 地図スタイルに応じたタイルレイヤーを取得
+  const mapStyle = mapSettings.mapStyle || 'osm';
+  const tileLayerConfig = getTileLayerConfig(mapStyle, maxZoom, limitMapToSingleWorld);
+  
+  L.tileLayer(tileLayerConfig.url, tileLayerConfig.options).addTo(map);
+  
+  // モバイルでの表示を確実にするため、少し遅延してサイズを再計算
+  setTimeout(() => {
+    if (mapInstance) {
+      mapInstance.invalidateSize();
+    }
+  }, 100);
+  
+  // ウィンドウリサイズ時にもサイズを再計算
+  window.addEventListener('resize', () => {
+    if (mapInstance) {
+      setTimeout(() => {
+        mapInstance.invalidateSize();
+      }, 100);
+    }
+  });
+  
+  // 位置情報を集約（同じ場所のコンサートをグループ化）
+  const locationGroups = {};
+  CONCERT_HISTORY.tours.forEach(tour => {
+    tour.concerts.forEach(concert => {
+      const key = `${concert.location.lat},${concert.location.lng}`;
+      if (!locationGroups[key]) {
+        locationGroups[key] = { location: concert.location, concerts: [] };
+      }
+      locationGroups[key].concerts.push({
+        tour: tour.name,
+        fullText: concert.fullText
+      });
+    });
+  });
+  
+  const concertIcon = L.divIcon({
+    className: 'custom-concert-marker',
+    html: '<div style="background-color: #7f7fff; border: 3px solid white; border-radius: 50%; width: 30px; height: 30px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px;">🎵</div>',
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+    popupAnchor: [0, -30]
+  });
+  
+  Object.values(locationGroups).forEach(group => {
+    const { location, concerts } = group;
+    
+    let popupContent = `<div class="concert-popup-title">${location.name}</div><div style="margin-top: 10px;">`;
+    concerts.forEach((concert, index) => {
+      popupContent += `<div class="concert-popup-item">
+        <div class="concert-popup-date">${concert.fullText}</div>
+        <div class="concert-popup-venue">${concert.tour}</div>
+      </div>`;
+      if (index < concerts.length - 1) {
+        popupContent += '<hr style="margin: 5px 0; border: none; border-top: 1px solid #eee;">';
+      }
+    });
+    popupContent += '</div>';
+    
+    L.marker([location.lat, location.lng], {
+      icon: concertIcon,
+      worldCopyJump: worldCopyJump
+    })
+      .addTo(map)
+      .bindPopup(popupContent, { maxWidth: 300, className: 'concert-popup' })
+      .on('mouseover', function() { this.openPopup(); });
+  });
+}
+
+// 野球観戦履歴の動的レンダリング
+function renderBaseballHistory() {
+  const container = document.getElementById('baseball-history-container');
+  const tabsContainer = document.getElementById('baseball-year-tabs');
+  const titleElement = document.getElementById('baseball-history-title');
+  
+  if (!BASEBALL_HISTORY || !BASEBALL_HISTORY.games || BASEBALL_HISTORY.games.length === 0) {
+    if (container) container.innerHTML = '<p style="text-align: center; color: #666; padding: 2em;">観戦履歴がありません</p>';
+    return;
+  }
+  
+  if (titleElement) {
+    const title = BASEBALL_HISTORY.title;
+    // "My "を黒色、"Baseball Game Attendance History"をグラデーションに分ける
+    if (title.startsWith('My ')) {
+      titleElement.innerHTML = `<span class="title-prefix">My </span><span>${title.replace('My ', '')}</span>`;
+    } else {
+      titleElement.innerHTML = `<span>${title}</span>`;
+    }
+  }
+  const subtitleElement = document.getElementById('baseball-history-subtitle');
+  if (subtitleElement && BASEBALL_HISTORY.since) {
+    subtitleElement.textContent = `Since ${BASEBALL_HISTORY.since}`;
+  }
+  
+  // 年度ごとにグループ化
+  const gamesByYear = {};
+  BASEBALL_HISTORY.games.forEach(game => {
+    const year = game.date.split('.')[0];
+    if (!gamesByYear[year]) {
+      gamesByYear[year] = [];
+    }
+    gamesByYear[year].push(game);
+  });
+  
+  // 年度の降順でソート
+  const sortedYears = Object.keys(gamesByYear).sort((a, b) => b.localeCompare(a));
+  
+  // 年度タブを生成
+  if (tabsContainer) {
+    tabsContainer.innerHTML = '';
+    sortedYears.forEach((year, index) => {
+      const tab = document.createElement('button');
+      tab.className = 'baseball-year-tab';
+      if (index === 0) tab.classList.add('active');
+      tab.textContent = `${year}年`;
+      tab.setAttribute('data-year', year);
+      tab.addEventListener('click', function() {
+        // アクティブタブを更新
+        tabsContainer.querySelectorAll('.baseball-year-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        // 選択された年度の履歴を表示
+        showYearGames(year, gamesByYear);
+      });
+      tabsContainer.appendChild(tab);
+    });
+  }
+  
+  // 初期表示（最初の年度）
+  if (sortedYears.length > 0) {
+    showYearGames(sortedYears[0], gamesByYear);
+  }
+}
+
+// 年度ごとの履歴を表示
+function showYearGames(year, gamesByYear) {
+  const container = document.getElementById('baseball-history-container');
+  if (!container) return;
+  
+  container.innerHTML = '';
+  
+  const games = gamesByYear[year];
+  if (!games || games.length === 0) return;
+  
+  const gamesList = document.createElement('ul');
+  gamesList.className = 'baseball-games-list';
+  
+  games.sort((a, b) => b.date.localeCompare(a.date)).forEach(game => {
+    const gameItem = document.createElement('li');
+    gameItem.className = 'baseball-game-item';
+    
+    const gameDate = document.createElement('span');
+    gameDate.className = 'baseball-game-date';
+    gameDate.textContent = game.fullText;
+    
+    gameItem.appendChild(gameDate);
+    
+    // 試合詳細プルダウンを追加
+    if (game.details) {
+      const detailsContainer = document.createElement('div');
+      detailsContainer.className = 'baseball-game-details-container';
+      
+      const detailsContent = document.createElement('div');
+      detailsContent.className = 'baseball-game-details-content';
+      detailsContent.textContent = game.details;
+      
+      detailsContainer.appendChild(detailsContent);
+      gameItem.appendChild(detailsContainer);
+      
+      // マウスホバーで展開/非展開
+      gameItem.addEventListener('mouseenter', function() {
+        detailsContainer.classList.add('expanded');
+      });
+      
+      gameItem.addEventListener('mouseleave', function() {
+        detailsContainer.classList.remove('expanded');
+      });
+    }
+    
+    gamesList.appendChild(gameItem);
+  });
+  
+  container.appendChild(gamesList);
+}
+
+// ページ読み込み時に実行
+document.addEventListener('DOMContentLoaded', () => {
+  // モバイルでも地図が正しく表示されるように、少し遅延して初期化
+  setTimeout(() => {
+    initMap();
+    renderConcertHistory();
+    renderBaseballHistory();
+  }, 50);
+});
+</script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>
