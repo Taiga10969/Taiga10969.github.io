@@ -1,0 +1,977 @@
+/* hobbypage専用スタイル */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: #1a1a1a !important;
+  font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #fafbfc;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 趣味紹介セクションのスタイル */
+.hobby-intro-section {
+  padding: 100px 0 120px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8faff 50%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hobby-intro-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(127, 127, 255, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hobby-intro-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 991px) {
+  .hobby-intro-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.hobby-intro-image {
+  position: relative;
+}
+
+.hobby-intro-content {
+  position: relative;
+}
+
+.hobby-intro-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, rgba(127, 127, 255, 0.1) 0%, rgba(127, 127, 255, 0.05) 100%);
+  border: 1px solid rgba(127, 127, 255, 0.2);
+  border-radius: 20px;
+  color: #7f7fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.hobby-intro-img {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(127, 127, 255, 0.15), 0 0 0 1px rgba(127, 127, 255, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+}
+
+.hobby-intro-img:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 80px rgba(127, 127, 255, 0.25), 0 0 0 1px rgba(127, 127, 255, 0.1);
+}
+
+.hobby-intro-content p {
+  font-size: 17px;
+  line-height: 1.9;
+  color: #4a5568;
+  margin-bottom: 1.5em;
+  font-weight: 400;
+}
+
+.hobby-intro-content strong {
+  font-weight: 600;
+  color: #7f7fff;
+  background: linear-gradient(135deg, rgba(127, 127, 255, 0.1) 0%, rgba(127, 127, 255, 0.05) 100%);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.hobby-intro-content .heading_container h2 {
+  margin-bottom: 1.2em;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1a202c;
+  letter-spacing: -0.02em;
+}
+
+.hobby-intro-content .heading_container h2 span {
+  background: linear-gradient(135deg, #7f7fff 0%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
+
+.hobby-intro-name {
+  margin-top: 2em;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(127, 127, 255, 0.05) 0%, rgba(127, 127, 255, 0.02) 100%);
+  border: 1px solid rgba(127, 127, 255, 0.15);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.hobby-intro-name .name-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7f7fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  min-width: 60px;
+}
+
+.hobby-intro-name .name-value {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+@media (max-width: 768px) {
+  .hobby-intro-section {
+    padding: 60px 0 80px;
+  }
+  
+  .hobby-intro-content .heading_container h2 {
+    font-size: 2.2rem;
+  }
+  
+  .hobby-intro-content p {
+    font-size: 15px;
+  }
+  
+  .hobby-intro-name {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+.experience-section a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed #333;
+  word-break: break-word;
+  display: inline;
+}
+
+.experience-section a:hover {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid #333;
+}
+
+@media (max-width: 768px) {
+  .experience-section a {
+    border-bottom: 1px dashed #333;
+    word-break: break-all;
+    hyphens: auto;
+  }
+}
+
+/* ヘッダーナビゲーションの背景を紫っぽい色にして文字を白色に設定 */
+.header_bottom {
+  background-color: #7f7fff !important;
+}
+
+.navbar {
+  background-color: #7f7fff !important;
+}
+
+/* ハンバーガーメニューのスタイル */
+.navbar-toggler {
+  border: none;
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border-radius: 0.25rem;
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+.navbar-toggler:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.navbar-toggler-icon {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  content: "";
+  background: no-repeat center center;
+  background-size: 100% 100%;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #7f7fff;
+    border-top: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+  
+  .navbar-nav {
+    padding: 1rem 0;
+  }
+  
+  .navbar-nav .nav-item {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-nav .nav-item:last-child {
+    border-bottom: none;
+  }
+  
+  .navbar-nav .nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(10px);
+  }
+  
+  .navbar-nav .nav-link:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .navbar-nav .nav-link::after {
+    display: none;
+  }
+}
+
+/* スムーズスクロール */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ナビゲーションリンクのスタイル */
+.navbar-nav .nav-link {
+  color: white !important;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin: 0 0.25rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ffffff, #e0e0ff);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 80%;
+}
+
+/* アクティブなナビゲーションアイテムのスタイル */
+.navbar-nav .nav-item.active .nav-link {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-nav .nav-item.active .nav-link::after {
+  width: 80%;
+  background: linear-gradient(90deg, #ffffff, #e0e0ff);
+}
+
+/* スマホ版でのPage linkタイトルの空白 */
+@media (max-width: 768px) {
+  .page-link-title {
+    margin-top: 4rem !important;
+  }
+}
+
+/* ナビゲーションアイテムのホバー時の追加エフェクト */
+.navbar-nav .nav-item {
+  transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-item:hover {
+  transform: scale(1.05);
+}
+
+/* ナビゲーションリンクのフォーカス状態 */
+.navbar-nav .nav-link:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* スムーズなアニメーションのための設定 */
+.navbar-nav .nav-link,
+.navbar-nav .nav-link::after,
+.navbar-nav .nav-item {
+  will-change: transform, opacity, background-color;
+}
+
+.icon-hover {
+  transition: transform 0.3s ease;
+}
+
+.icon-hover:hover {
+  transform: scale(1.1) translateY(-5px);
+}
+
+/* Achievement折り畳みボタンのスタイル */
+.achievement-toggle-btn {
+  background-color: #7f7fff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(127, 127, 255, 0.3);
+}
+
+.achievement-toggle-btn:hover {
+  background-color: #6b6bff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(127, 127, 255, 0.4);
+}
+
+.achievement-toggle-btn:active {
+  transform: translateY(0);
+}
+
+.achievement-toggle-btn i {
+  transition: transform 0.3s ease;
+}
+
+.achievement-toggle-btn.expanded i {
+  transform: rotate(180deg);
+}
+
+.achievement-content {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* Schedule折り畳みボタンのスタイル */
+.schedule-toggle-btn {
+  background-color: #7f7fff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(127, 127, 255, 0.3);
+}
+
+.schedule-toggle-btn:hover {
+  background-color: #6b6bff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(127, 127, 255, 0.4);
+}
+
+.schedule-toggle-btn:active {
+  transform: translateY(0);
+}
+
+.schedule-toggle-btn i {
+  transition: transform 0.3s ease;
+}
+
+.schedule-toggle-btn.expanded i {
+  transform: rotate(180deg);
+}
+
+.schedule-content {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.calendar-container {
+  margin: 20px 0;
+}
+
+.calendar-container iframe {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+}
+
+/* セクションヘッダーのスタイル */
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: linear-gradient(135deg, rgba(127, 127, 255, 0.1) 0%, rgba(127, 127, 255, 0.05) 100%);
+  border: 1px solid rgba(127, 127, 255, 0.2);
+  border-radius: 20px;
+  color: #7f7fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.section-title {
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #1a202c;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.section-title span {
+  background: linear-gradient(135deg, #7f7fff 0%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
+
+.section-title .title-prefix {
+  color: #1a202c;
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: #1a202c;
+  background-clip: unset;
+  font-weight: 700;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: #718096;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* コンサート履歴セクションのスタイル */
+.concert-history-section {
+  padding: 100px 0;
+  background: #ffffff;
+  position: relative;
+}
+
+.concert-history-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(127, 127, 255, 0.2) 50%, transparent 100%);
+}
+
+/* コンサート履歴と地図のレイアウト */
+.concert-map-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 50px;
+  align-items: stretch;
+}
+
+@media (max-width: 991px) {
+  .concert-map-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 40px;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+  }
+  
+  .concert-list-container {
+    height: 400px;
+    min-height: 300px;
+  }
+  
+  .map-wrapper {
+    height: 400px;
+    min-height: 300px;
+    order: -1; /* モバイルでは地図を先に表示 */
+  }
+}
+
+.concert-list-container {
+  display: flex;
+  flex-direction: column;
+  height: 650px;
+  min-height: 300px;
+}
+
+#concert-history-container {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(127, 127, 255, 0.5) transparent;
+}
+
+#concert-history-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+#concert-history-container::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+#concert-history-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7f7fff 0%, #6b6bff 100%);
+  border-radius: 10px;
+}
+
+#concert-history-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #6b6bff 0%, #5a5aff 100%);
+}
+
+/* モダンな文字ベースのリストデザイン */
+.concert-history-section .tour-item {
+  margin-bottom: 1.8em;
+  padding-bottom: 1.4em;
+  border-bottom: 1px solid rgba(127, 127, 255, 0.12);
+  transition: all 0.3s ease;
+}
+
+.concert-history-section .tour-item:hover {
+  border-bottom-color: rgba(127, 127, 255, 0.25);
+}
+
+.concert-history-section .tour-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.concert-history-section .tour-name {
+  color: #7f7fff;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 0.8em;
+  padding: 8px 12px;
+  padding-bottom: 0.6em;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  opacity: 0.95;
+  background: linear-gradient(135deg, rgba(127, 127, 255, 0.08) 0%, rgba(127, 127, 255, 0.03) 100%);
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.concert-history-section .concerts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.concert-history-section .concert-item {
+  margin-bottom: 0.5em;
+  padding: 0.6em 0.8em;
+  padding-left: 2em;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #4a5568;
+  font-size: 15px;
+  line-height: 1.6;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.concert-history-section .concert-item:hover {
+  background: linear-gradient(135deg, rgba(127, 127, 255, 0.06) 0%, rgba(127, 127, 255, 0.03) 100%);
+  transform: translateX(4px);
+  color: #7f7fff;
+}
+
+.concert-history-section .concert-item::before {
+  content: '▸';
+  position: absolute;
+  left: 0.8em;
+  color: #7f7fff;
+  font-size: 14px;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.concert-history-section .concert-item:hover::before {
+  opacity: 1;
+  transform: translateX(4px);
+  color: #6366f1;
+}
+
+.concert-history-section .concert-date {
+  font-weight: 500;
+  color: inherit;
+  font-size: inherit;
+}
+
+.concert-history-section .concert-venue {
+  color: #666;
+  font-size: 12px;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+/* 地図セクションのスタイル */
+.map-wrapper {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 650px;
+  width: 100%;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .map-wrapper {
+    height: 400px;
+    min-height: 350px;
+  }
+}
+
+.map-container {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    min-height: 350px;
+    height: 100% !important;
+  }
+  
+  /* Leaflet地図のサイズを強制的に設定 */
+  .map-container .leaflet-container {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 350px;
+  }
+}
+
+/* カスタムマーカーのポップアップスタイル */
+.leaflet-popup-content-wrapper {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.leaflet-popup-content {
+  margin: 15px;
+  font-size: 14px;
+}
+
+.concert-popup-title {
+  font-weight: bold;
+  color: #7f7fff;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.concert-popup-item {
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.concert-popup-item:last-child {
+  border-bottom: none;
+}
+
+.concert-popup-date {
+  font-weight: 600;
+  color: #333;
+}
+
+.concert-popup-venue {
+  color: #666;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* カスタムフラグアイコン */
+.custom-flag-icon {
+  background-color: #7f7fff;
+  border: 3px solid white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.custom-flag-icon::after {
+  content: '🎵';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+}
+
+/* イメージカルーセルのスタイル */
+.image-carousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  height: auto;
+  overflow: hidden;
+}
+
+.carousel-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.7s cubic-bezier(0.4, 2, 0.6, 1), transform 0.7s cubic-bezier(0.4, 2, 0.6, 1);
+  backface-visibility: hidden;
+  z-index: 1;
+}
+
+.carousel-img.active {
+  opacity: 1;
+  transform: scale(1.08);
+  z-index: 2;
+  animation: bounceIn 0.7s;
+}
+
+.carousel-img.prev {
+  opacity: 0;
+  transform: scale(0.8);
+  z-index: 0;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(100%) rotateZ(-10deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-10%) rotateZ(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.08) translateY(0) rotateZ(0deg);
+  }
+}
+
+/* 野球観戦履歴セクションのスタイル */
+.baseball-history-section {
+  padding: 100px 0 120px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
+  position: relative;
+}
+
+#baseball-history-container {
+  margin-top: 1em;
+  max-width: 100%;
+}
+
+/* 年度タブのスタイル */
+.baseball-year-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  justify-content: center;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.baseball-year-tab {
+  background: linear-gradient(135deg, rgba(127, 127, 255, 0.05) 0%, rgba(127, 127, 255, 0.02) 100%);
+  border: 1px solid rgba(127, 127, 255, 0.2);
+  color: #7f7fff;
+  padding: 0.6em 1.4em;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  backdrop-filter: blur(10px);
+}
+
+.baseball-year-tab:hover {
+  background: linear-gradient(135deg, rgba(127, 127, 255, 0.15) 0%, rgba(127, 127, 255, 0.08) 100%);
+  border-color: rgba(127, 127, 255, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(127, 127, 255, 0.2);
+}
+
+.baseball-year-tab.active {
+  background: linear-gradient(135deg, #7f7fff 0%, #6366f1 100%);
+  color: white;
+  border-color: #7f7fff;
+  box-shadow: 0 6px 20px rgba(127, 127, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* モダンな文字ベースのリストデザイン */
+.baseball-history-section .year-item {
+  margin-bottom: 1.2em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid rgba(127, 127, 255, 0.15);
+}
+
+.baseball-history-section .year-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.baseball-history-section .year-title {
+  color: #7f7fff;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.3em;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.baseball-history-section .baseball-games-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.baseball-history-section .baseball-game-item {
+  margin-bottom: 0.5em;
+  padding: 0.6em 0.8em;
+  padding-left: 2em;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #4a5568;
+  font-size: 15px;
+  line-height: 1.6;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.baseball-history-section .baseball-game-item::before {
+  content: '▸';
+  position: absolute;
+  left: 0.8em;
+  color: #7f7fff;
+  font-size: 14px;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.baseball-history-section .baseball-game-item:hover {
+  background: linear-gradient(135deg, rgba(127, 127, 255, 0.06) 0%, rgba(127, 127, 255, 0.03) 100%);
+  color: #7f7fff;
+  transform: translateX(4px);
+}
+
+.baseball-history-section .baseball-game-item:hover::before {
+  opacity: 1;
+  transform: translateX(4px);
+  color: #6366f1;
+}
+
+.baseball-history-section .baseball-game-date {
+  font-weight: 500;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* 試合詳細プルダウンのスタイル */
+.baseball-game-details-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.baseball-game-details-container.expanded {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.baseball-game-details-content {
+  margin-top: 0.5em;
+  margin-left: 1em;
+  padding: 0.8em 1em;
+  background: rgba(127, 127, 255, 0.1);
+  border-left: 3px solid #7f7fff;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-line;
+  color: #555;
+}
+
