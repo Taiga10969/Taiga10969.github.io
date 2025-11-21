@@ -327,6 +327,79 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       max-width: 100%;
     }
+    
+    /* ストレス状態表示カードのスタイル */
+    .stress-card-container {
+      margin: 20px 0;
+    }
+    
+    .stress-card {
+      background: #f7fbff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    
+    .stress-status {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 8px 0;
+      color: #0c0c0c;
+    }
+    
+    .stress-hrv {
+      font-size: 20px;
+      color: #7f7fff;
+      margin-top: 10px;
+    }
+    
+    .stress-time {
+      margin-top: 10px;
+      color: #666;
+      font-size: 14px;
+    }
+    
+    /* ストレス状態表示のレイアウト */
+    .stress-content-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .stress-image-container {
+      flex: 0 0 auto;
+      text-align: center;
+    }
+    
+    .stress-image-container img {
+      max-width: 180px;
+    }
+    
+    .stress-info-container {
+      flex: 0 1 auto;
+      text-align: left;
+      min-width: 200px;
+    }
+    
+    @media (max-width: 768px) {
+      .stress-content-wrapper {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .stress-info-container {
+        text-align: center;
+      }
+      
+      .stress-image-container img {
+        max-width: 150px;
+      }
+    }
 
   </style>
 
@@ -443,15 +516,29 @@
     </div>
   </section>
 
-  <section class="treatment_section layout_padding">
-    <div class="container">
-      <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;">
-        <img src="images/g.jpg" alt="" style="width: 400px; max-width: 100%; height: auto;">
-        <img src="images/generative-ai-passport-logo.png" alt="" style="width: 200px; max-width: 100%; height: auto;">
+  <div style="height: 100px;"></div>
+
+  <!-- <ストレス状態表示セクション> -->
+  <section id="stress-status" style="width: 100%; padding: 40px 20px; background: #ffffff;">
+    <div style="max-width: 100%; margin: 0 auto;">
+      <div class="heading_container heading_center">
+        <h2>
+          My <span>Stress Status</span>
+        </h2>
+        HRVから判定されるストレス状態をリアルタイムで表示しています．
+      </div>
+      <div class="stress-content-wrapper" style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap;">
+        <div class="stress-image-container" style="flex: 0 0 auto; text-align: center;">
+          <img id="stress-status-image" src="" alt="ストレス状態" style="max-width: 150px; width: 100%; height: auto; border-radius: 12px; display: none;">
+        </div>
+        <div class="stress-info-container" style="flex: 0 1 auto; text-align: left; min-width: 200px;">
+          <div id="stress-status-text" class="stress-status">取得中...</div>
+          <div id="stress-hrv" class="stress-hrv"></div>
+          <div id="stress-time" class="stress-time"></div>
+        </div>
       </div>
     </div>
   </section>
-
 
   <section class="treatment_section layout_padding" id="schedule">
     <div class="container">
@@ -835,6 +922,15 @@
     
 </section>
 
+<section class="treatment_section layout_padding">
+  <div class="container">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 20px; flex-wrap: wrap;">
+      <img src="images/g.jpg" alt="" style="width: 400px; max-width: 100%; height: auto;">
+      <img src="images/generative-ai-passport-logo.png" alt="" style="width: 200px; max-width: 100%; height: auto;">
+    </div>
+  </div>
+</section>
+
 
 
   
@@ -1090,6 +1186,57 @@ function toggleAchievement() {
     toggleIcon.className = 'fa fa-chevron-down';
   }
 }
+
+// ストレス状態を取得して表示する関数
+const GAS_URL = "https://script.google.com/macros/s/AKfycbx6adQJKGF8tVW8m8w9_LDYNRtalgdS5E-UbiY246dYe5DSid2avwy6-nRCi_w7-u2o/exec";
+
+// ストレス状態に応じた画像パスを取得する関数
+function getStressImagePath(status) {
+  // 実際のストレス状態の文面に応じて画像を選択
+  if (status.includes('🟢状態が優れている') || status.includes('状態が優れている')) {
+    return 'images/stress_good.png'; // 状態が優れている用の画像
+  } else if (status.includes('🟢正常') || status.includes('正常')) {
+    return 'images/stress_low.png'; // 正常用の画像
+  } else if (status.includes('🟡ストレスに注意') || status.includes('ストレスに注意')) {
+    return 'images/stress_medium.png'; // ストレスに注意用の画像
+  } else if (status.includes('🔴ストレス過負荷') || status.includes('ストレス過負荷')) {
+    return 'images/stress_high.png'; // ストレス過負荷用の画像
+  } else {
+    return 'images/stress_low.png'; // デフォルト画像
+  }
+}
+
+async function loadStressStatus(){
+  try {
+    const res = await fetch(GAS_URL);
+    const data = await res.json();
+
+    const statusText = data.status;
+    document.getElementById("stress-status-text").textContent = statusText;
+    document.getElementById("stress-hrv").textContent = `HRV: ${Number(data.hrv).toFixed(2)}`;
+    document.getElementById("stress-time").textContent = `最終更新: ${data.timestamp}`;
+    
+    // ストレス状態に応じた画像を表示
+    const imagePath = getStressImagePath(statusText);
+    const stressImage = document.getElementById("stress-status-image");
+    stressImage.src = imagePath;
+    stressImage.style.display = 'block';
+    stressImage.onerror = function() {
+      // 画像が見つからない場合は非表示にする
+      this.style.display = 'none';
+    };
+  } catch (error) {
+    console.error('ストレス状態の取得に失敗しました:', error);
+    document.getElementById("stress-status-text").textContent = "取得エラー";
+    document.getElementById("stress-hrv").textContent = "";
+    document.getElementById("stress-time").textContent = "";
+    document.getElementById("stress-status-image").style.display = 'none';
+  }
+}
+
+// ページ読み込み時に実行し、5分ごとに更新
+loadStressStatus();
+setInterval(loadStressStatus, 300*1000); // 5分ごとに更新
 
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.image-carousel').forEach(function(carousel) {
