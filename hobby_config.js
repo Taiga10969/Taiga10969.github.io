@@ -37,6 +37,35 @@ const CONCERT_HISTORY = {
   },
   "tours": [
     {
+      "name": "NTT docomo presents THE MUSIC STADIUM 2026 Organized by ONE OK ROCK",
+      "concerts": [
+        {
+          "date": "2026.04.04",
+          "dayOfWeek": "Sat",
+          "venue": "DAY01: Guest: UVERworld",
+          "location": {
+            "name": "MUFG STADIUM (国立競技場)",
+            "lat": 35.678033235520964,
+            "lng": 139.71459454079385,
+            "country": "Japan"
+          },
+          "fullText": "2026.04.04(Sat) MUFG STADIUM (国立競技場)"
+        },
+        {
+          "date": "2026.04.05",
+          "dayOfWeek": "Sun",
+          "venue": "DAY02: Guest: YOASOBI",
+          "location": {
+            "name": "MUFG STADIUM (国立競技場)",
+            "lat": 35.678033235520964,
+            "lng": 139.71459454079385,
+            "country": "Japan"
+          },
+          "fullText": "2026.04.05(Sun) MUFG STADIUM (国立競技場)"
+        },
+      ]
+    },
+    {
       "name": "ONE OK ROCK DETOX JAPAN TOUR 2025",
       "concerts": [
         {
