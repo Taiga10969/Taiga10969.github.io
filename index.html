@@ -236,6 +236,22 @@
     .icon-hover:hover {
       transform: scale(1.1) translateY(-5px);
     }
+    /* Link icon (uses images/link.png) - a replacement for font-awesome icon when you want a custom image */
+    .icon-link {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-image: url("images/link.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    .icon-link:hover {
+      transform: translateY(-3px) scale(1.05);
+      transition: transform 0.18s ease;
+    }
     
     /* Achievement折り畳みボタンのスタイル */
     .achievement-toggle-btn {
@@ -590,7 +606,8 @@
 
                 </p>
                 <!-- <img src="images/arXiv-feed-SlackBot_iamge.png" alt="arXiv-feed-SlackBot" style="width: 100%; height: auto;"> -->
-                <a href="https://hitandblowmaster.onrender.com/" class="project-btn github-btn">
+                <a href="https://hitandblowmaster.onrender.com/" class="project-btn app-btn">
+                  <i class="icon-link" aria-hidden="true"></i>
                   Web App Page
                 </a>
                 <br>
