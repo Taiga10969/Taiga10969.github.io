@@ -14,7 +14,19 @@ const CONCERT_HISTORY = {
     "limitMapToSingleWorld": true
   },
   "concerts": [
-  {
+    {
+      "date": "2026.08.11",
+      "dayOfWeek": "Tue",
+      "venue": "IG ARENA",
+      "location": {
+        "name": "IG ARENA",
+        "lat": 35.190421458819294,
+        "lng": 136.90279408835156,
+        "country": "Aichi"
+      },
+      "tour": "ONE OK ROCK DETOX JAPAN TOUR FINAL 2026"
+    },
+    {
     "date": "2026.04.05",
     "dayOfWeek": "Sun",
     "venue": "DAY02: Guest: YOASOBI",
@@ -37,6 +49,30 @@ const CONCERT_HISTORY = {
       "country": "Japan"
     },
     "tour": "NTT docomo presents THE MUSIC STADIUM 2026 Organized by ONE OK ROCK"
+  },
+  {
+    "date": "2026.03.15",
+    "dayOfWeek": "Sun",
+    "venue": "Brisbane – Fortitude Music Hall",
+    "location": {
+      "name": "Fortitude Music Hall",
+      "lat": -27.45764125237514, 
+      "lng": 153.03463772490448,
+      "country": "Japan"
+    },
+    "tour": "ONE OK ROCK DETOX Australia Tour 2026"
+  },
+  {
+    "date": "2026.02.25",
+    "dayOfWeek": "Wed",
+    "venue": "K Arena Yokohama",
+    "location": {
+      "name": "Kアリーナ横浜",
+      "lat": 35.46476371640423,
+      "lng": 139.63058208185703,
+      "country": "Japan"
+    },
+    "tour": "OneRepublic “From Asia, With Love” 2026 in Japan"
   },
   {
     "date": "2025.09.06",
@@ -85,6 +121,18 @@ const CONCERT_HISTORY = {
       "country": "Japan"
     },
     "tour": "B'z presents UNITE#02"
+  },
+  {
+    "date": "2025.04.16",
+    "dayOfWeek": "Wed",
+    "venue": "THE BOTTOM LINE",
+    "location": {
+      "name": "THE BOTTOM LINE",
+      "lat": 35.17014134790444, 
+      "lng": 136.9386244558786,
+      "country": "Aichi, Japan"
+    },
+    "tour": "NOTD THE DIGITAL NOTES TOUR"
   },
   {
     "date": "2024.10.23",

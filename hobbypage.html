@@ -315,15 +315,12 @@ function initMap() {
     concerts.sort((a, b) => b.date.localeCompare(a.date));
 
     let popupContent = `<div class="concert-popup-title">${location.name}</div><div style="margin-top: 10px;">`;
-    concerts.forEach((concert, index) => {
+    concerts.forEach(concert => {
       popupContent += `<div class="concert-popup-item">
         <div class="concert-popup-date">${concert.dateLabel}</div>
         <div class="concert-popup-tour">${concert.tour}</div>
         <div class="concert-popup-venue">${concert.venue}</div>
       </div>`;
-      if (index < concerts.length - 1) {
-        popupContent += '<hr style="margin: 5px 0; border: none; border-top: 1px solid #eee;">';
-      }
     });
     popupContent += '</div>';
     
