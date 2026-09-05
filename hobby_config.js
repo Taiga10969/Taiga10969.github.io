@@ -2,302 +2,235 @@
 const CONCERT_HISTORY = {
   "title": "My Concert Attendance History",
   "since": "2021",
-  // 地図の設定
   "mapSettings": {
-    // 初期ズームレベル（小さくすると広範囲、大きくすると詳細）
-    // 例: 1-3: 世界全体、4-5: 大陸全体、6-8: 国全体、9-12: 都市全体、13以上: 詳細な地図
     "initialZoom": 5,
-    // 初期表示位置（緯度・経度）
-    // 例: 日本中心 { "lat": 36.2048, "lng": 138.2529 }
     "initialCenter": {
       "lat": 36.2048,
       "lng": 138.2529
     },
-    // ホバー時のズームレベル（コンサート履歴にマウスを置いたときに地図を移動するときのズーム）
-    // 例: 12-14: 都市レベル、15-17: 街区レベル、18以上: 建物レベル
-    "hoverZoom": 10,
-    // 地図の最大ズームレベル（ユーザーが拡大できる最大レベル）
-    // 例: 18-19: 通常の地図、20以上: より詳細
+    "clickZoom": 10,
     "maxZoom": 18,
-    // マーカーの連続表示を有効にする（true: 地図を無限スクロールしてもマーカーが連続表示、false: マーカーは元の位置にのみ表示）
-    // 例: true: 連続表示、false: 単一表示
     "worldCopyJump": true,
-    // 地図の連続性をOFFにする（true: 地図を1つの世界に制限、false: 地図を無限にスクロール可能）
-    // 例: true: 連続性OFF（地図が1つだけ）、false: 連続性ON（地図が無限に続く）
-    "limitMapToSingleWorld": true,
-    // 地図のスタイル（タイルレイヤー）
-    // 選択肢: "osm", "cartodb-positron", "cartodb-darkmatter", "stamen-terrain", "stamen-toner", "esri-worldimagery"
-    // osm: OpenStreetMap（標準的な地図）
-    // cartodb-positron: CartoDB Positron（明るくモダンな地図）
-    // cartodb-darkmatter: CartoDB Dark Matter（暗い地図）
-    // stamen-terrain: Stamen Terrain（地形が強調された地図）
-    // stamen-toner: Stamen Toner（白黒のシンプルな地図）
-    // esri-worldimagery: Esri World Imagery（衛星画像）
-    "mapStyle": "cartodb-positron"
+    "limitMapToSingleWorld": true
   },
-  "tours": [
-    {
-      "name": "NTT docomo presents THE MUSIC STADIUM 2026 Organized by ONE OK ROCK",
-      "concerts": [
-        {
-          "date": "2026.04.04",
-          "dayOfWeek": "Sat",
-          "venue": "DAY01: Guest: UVERworld",
-          "location": {
-            "name": "MUFG STADIUM (国立競技場)",
-            "lat": 35.678033235520964,
-            "lng": 139.71459454079385,
-            "country": "Japan"
-          },
-          "fullText": "2026.04.04(Sat) MUFG STADIUM (国立競技場)"
-        },
-        {
-          "date": "2026.04.05",
-          "dayOfWeek": "Sun",
-          "venue": "DAY02: Guest: YOASOBI",
-          "location": {
-            "name": "MUFG STADIUM (国立競技場)",
-            "lat": 35.678033235520964,
-            "lng": 139.71459454079385,
-            "country": "Japan"
-          },
-          "fullText": "2026.04.05(Sun) MUFG STADIUM (国立競技場)"
-        },
-      ]
+  "concerts": [
+  {
+    "date": "2026.04.05",
+    "dayOfWeek": "Sun",
+    "venue": "DAY02: Guest: YOASOBI",
+    "location": {
+      "name": "MUFG STADIUM (国立競技場)",
+      "lat": 35.678033235520964,
+      "lng": 139.71459454079385,
+      "country": "Japan"
     },
-    {
-      "name": "ONE OK ROCK DETOX JAPAN TOUR 2025",
-      "concerts": [
-        {
-          "date": "2025.08.16",
-          "dayOfWeek": "Sat",
-          "venue": "OITA – CRASUS DOME OITA",
-          "location": {
-            "name": "クラサスドーム大分",
-            "lat": 33.200983603157226, //33.200983603157226, 131.65757510185242
-            "lng": 131.65757510185242,
-            "country": "Japan"
-          },
-          "fullText": "2025.08.16(Sat) OITA – CRASUS DOME OITA"
-        },
-        {
-          "date": "2025.08.17",
-          "dayOfWeek": "Sun",
-          "venue": "OITA – CRASUS DOME OITA",
-          "location": {
-            "name": "クラサスドーム大分",
-            "lat": 33.200983603157226, //33.200983603157226, 131.65757510185242
-            "lng": 131.65757510185242,
-            "country": "Japan"
-          },
-          "fullText": "2025.08.17(Sun) OITA – CRASUS DOME OITA"
-        },
-        {
-          "date": "2025.09.06",
-          "dayOfWeek": "SAT",
-          "venue": "HOKKAIDO – Daiwa House PREMIST DOME(SAPPORO DOME)",
-          "location": {
-            "name": "大和ハウス プレミストドーム",
-            "lat": 43.01527630337005, //43.01527630337005, 141.40972717116392
-            "lng": 141.40972717116392,
-            "country": "Japan"
-          },
-          "fullText": "2025.09.06(SAT) HOKKAIDO – Daiwa House PREMIST DOME(SAPPORO DOME)"
-        }
-      ]
+    "tour": "NTT docomo presents THE MUSIC STADIUM 2026 Organized by ONE OK ROCK"
+  },
+  {
+    "date": "2026.04.04",
+    "dayOfWeek": "Sat",
+    "venue": "DAY01: Guest: UVERworld",
+    "location": {
+      "name": "MUFG STADIUM (国立競技場)",
+      "lat": 35.678033235520964,
+      "lng": 139.71459454079385,
+      "country": "Japan"
     },
-    {
-      "name": "B'z presents UNITE#02",
-      "concerts": [
-        {
-          "date": "2025.06.29",
-          "dayOfWeek": "SUN",
-          "venue": "Kアリーナ横浜",
-          "location": {
-            "name": "Kアリーナ横浜",
-            "lat": 35.46476371640423, //35.46476371640423, 139.63058208185703
-            "lng": 139.63058208185703,
-            "country": "Japan"
-          },
-          "fullText": "2025.06.29 (SUN) Kアリーナ横浜"
-        }
-      ]
+    "tour": "NTT docomo presents THE MUSIC STADIUM 2026 Organized by ONE OK ROCK"
+  },
+  {
+    "date": "2025.09.06",
+    "dayOfWeek": "SAT",
+    "venue": "HOKKAIDO – Daiwa House PREMIST DOME(SAPPORO DOME)",
+    "location": {
+      "name": "大和ハウス プレミストドーム",
+      "lat": 43.01527630337005,
+      "lng": 141.40972717116392,
+      "country": "Japan"
     },
-    {
-      "name": "ONE OK ROCK 2024 PREMONITION WORLD TOUR",
-      "concerts": [
-        {
-          "date": "2024.09.14",
-          "dayOfWeek": "SAT",
-          "venue": "TOKYO – AJINOMOTO STADIUM",
-          "location": {
-            "name": "味の素スタジアム",
-            "lat": 35.66423223446603, //35.66423223446603, 139.52717418110186
-            "lng": 139.52717418110186,
-            "country": "Japan"
-          },
-          "fullText": "2024.09.14 (SAT) – TOKYO – AJINOMOTO STADIUM"
-        },
-        {
-          "date": "2024.10.23",
-          "dayOfWeek": "WED",
-          "venue": "LOS ANGELES – KIA FORUM",
-          "location": {
-            "name": "The Forum (KIA FORUM)",
-            "lat": 33.95828105084798, //33.95828105084798, -118.34200845866988
-            "lng": -118.34200845866988,
-            "country": "USA"
-          },
-          "fullText": "2024.10.23 (WED) – LOS ANGELES – KIA FORUM"
-        }
-      ]
+    "tour": "ONE OK ROCK DETOX JAPAN TOUR 2025"
+  },
+  {
+    "date": "2025.08.17",
+    "dayOfWeek": "Sun",
+    "venue": "OITA – CRASUS DOME OITA",
+    "location": {
+      "name": "クラサスドーム大分",
+      "lat": 33.200983603157226,
+      "lng": 131.65757510185242,
+      "country": "Japan"
     },
-    {
-      "name": "SUPER DRY SPECIAL LIVE Organized by ONE OK ROCK",
-      "concerts": [
-        {
-          "date": "2024.05.18",
-          "dayOfWeek": "SAT",
-          "venue": "ベルーナドーム（埼玉）with WANIMA",
-          "location": {
-            "name": "ベルーナドーム",
-            "lat": 35.768757697427816, //35.768757697427816, 139.42056204139217
-            "lng": 139.42056204139217,
-            "country": "Japan"
-          },
-          "fullText": "2024.05.18 (SAT) ベルーナドーム（埼玉）with WANIMA"
-        },
-        {
-          "date": "2024.05.19",
-          "dayOfWeek": "SUN",
-          "venue": "ベルーナドーム（埼玉）with Awich",
-          "location": {
-            "name": "ベルーナドーム",
-            "lat": 35.768757697427816, //35.768757697427816, 139.42056204139217
-            "lng": 139.42056204139217,
-            "country": "Japan"
-          },
-          "fullText": "2024.05.19 (SUN) ベルーナドーム（埼玉）with Awich"
-        }
-      ]
+    "tour": "ONE OK ROCK DETOX JAPAN TOUR 2025"
+  },
+  {
+    "date": "2025.08.16",
+    "dayOfWeek": "Sat",
+    "venue": "OITA – CRASUS DOME OITA",
+    "location": {
+      "name": "クラサスドーム大分",
+      "lat": 33.200983603157226,
+      "lng": 131.65757510185242,
+      "country": "Japan"
     },
-    {
-      "name": "VS",
-      "concerts": [
-        {
-          "date": "2023.11.14",
-          "dayOfWeek": "TUE",
-          "venue": "東京ドーム with MY FIRST STORY",
-          "location": {
-            "name": "東京ドーム",
-            "lat": 35.70577025389102, //35.70577025389102, 139.75197712789836
-            "lng": 139.75197712789836,
-            "country": "Japan"
-          },
-          "fullText": "2023.11.14 (TUE) 東京ドーム with MY FIRST STORY"
-        }
-      ]
+    "tour": "ONE OK ROCK DETOX JAPAN TOUR 2025"
+  },
+  {
+    "date": "2025.06.29",
+    "dayOfWeek": "SUN",
+    "venue": "Kアリーナ横浜",
+    "location": {
+      "name": "Kアリーナ横浜",
+      "lat": 35.46476371640423,
+      "lng": 139.63058208185703,
+      "country": "Japan"
     },
-    {
-      "name": "LUXURY DISEASE ASIA TOUR 2023",
-      "concerts": [
-        {
-          "date": "2023.09.26",
-          "dayOfWeek": "TUE",
-          "venue": "Manila – Smart Araneta Coliseum",
-          "location": {
-            "name": "Smart Araneta Coliseum",
-            "lat": 14.620874914102956, //14.620874914102956, 121.05338606783846
-            "lng": 121.05338606783846,
-            "country": "Philippines"
-          },
-          "fullText": "2023.09.26 (TUE) Manila – Smart Araneta Coliseum"
-        }
-      ]
+    "tour": "B'z presents UNITE#02"
+  },
+  {
+    "date": "2024.10.23",
+    "dayOfWeek": "WED",
+    "venue": "LOS ANGELES – KIA FORUM",
+    "location": {
+      "name": "The Forum (KIA FORUM)",
+      "lat": 33.95828105084798,
+      "lng": -118.34200845866988,
+      "country": "USA"
     },
-    {
-      "name": "ONE OK ROCK 2023 LUXURY DISEASE JAPAN TOUR",
-      "concerts": [
-        {
-          "date": "2023.01.28",
-          "dayOfWeek": "SAT",
-          "venue": "愛知；バンテリンドーム ナゴヤ",
-          "location": {
-            "name": "バンテリンドーム ナゴヤ",
-            "lat": 35.18623831386264, //35.18623831386264, 136.9473867561913
-            "lng": 136.9473867561913,
-            "country": "Japan"
-          },
-          "fullText": "2023.01.28 (SAT) 愛知；バンテリンドーム ナゴヤ"
-        },
-        {
-          "date": "2023.01.29",
-          "dayOfWeek": "SUN",
-          "venue": "愛知；バンテリンドーム ナゴヤ",
-          "location": {
-            "name": "バンテリンドーム ナゴヤ",
-            "lat": 35.18623831386264, //35.18623831386264, 136.9473867561913
-            "lng": 136.9473867561913,
-            "country": "Japan"
-          },
-          "fullText": "2023.01.29 (SUN) 愛知；バンテリンドーム ナゴヤ"
-        },
-        {
-          "date": "2023.02.12",
-          "dayOfWeek": "SUN",
-          "venue": "大阪；京セラドーム大阪",
-          "location": {
-            "name": "京セラドーム大阪",
-            "lat": 34.669465605287904, //34.669465605287904, 135.4765718343116
-            "lng": 135.4765718343116,
-            "country": "Japan"
-          },
-          "fullText": "2023.02.12 (SUN) 大阪；京セラドーム大阪"
-        },
-        {
-          "date": "2023.04.04",
-          "dayOfWeek": "TUE",
-          "venue": "東京；東京ドーム",
-          "location": {
-            "name": "東京ドーム",
-            "lat": 35.70577025389102, //35.70577025389102, 139.75197712789836
-            "lng": 139.75197712789836,
-            "country": "Japan"
-          },
-          "fullText": "2023.04.04 (TUE) 東京；東京ドーム"
-        },
-        {
-          "date": "2023.04.05",
-          "dayOfWeek": "WED",
-          "venue": "東京；東京ドーム",
-          "location": {
-            "name": "東京ドーム",
-            "lat": 35.70577025389102, //35.70577025389102, 139.75197712789836
-            "lng": 139.75197712789836,
-            "country": "Japan"
-          },
-          "fullText": "2023.04.05 (WED) 東京；東京ドーム"
-        }
-      ]
+    "tour": "ONE OK ROCK 2024 PREMONITION WORLD TOUR"
+  },
+  {
+    "date": "2024.09.14",
+    "dayOfWeek": "SAT",
+    "venue": "TOKYO – AJINOMOTO STADIUM",
+    "location": {
+      "name": "味の素スタジアム",
+      "lat": 35.66423223446603,
+      "lng": 139.52717418110186,
+      "country": "Japan"
     },
-    {
-      "name": "ONE OK ROCK 2021 \"Day to Night Acoustic Sessions\" at STELLAR THEATER",
-      "concerts": [
-        {
-          "date": "2021.07.23",
-          "dayOfWeek": "FRI",
-          "venue": "河口湖ステラシアター",
-          "location": {
-            "name": "河口湖ステラシアター",
-            "lat": 35.48051291228432, //35.48051291228432, 138.75957385487402
-            "lng": 138.75957385487402,
-            "country": "Japan"
-          },
-          "fullText": "2021.07.23 (FRI) 河口湖ステラシアター"
-        }
-      ]
-    }
-  ]
+    "tour": "ONE OK ROCK 2024 PREMONITION WORLD TOUR"
+  },
+  {
+    "date": "2024.05.19",
+    "dayOfWeek": "SUN",
+    "venue": "ベルーナドーム（埼玉）with Awich",
+    "location": {
+      "name": "ベルーナドーム",
+      "lat": 35.768757697427816,
+      "lng": 139.42056204139217,
+      "country": "Japan"
+    },
+    "tour": "SUPER DRY SPECIAL LIVE Organized by ONE OK ROCK"
+  },
+  {
+    "date": "2024.05.18",
+    "dayOfWeek": "SAT",
+    "venue": "ベルーナドーム（埼玉）with WANIMA",
+    "location": {
+      "name": "ベルーナドーム",
+      "lat": 35.768757697427816,
+      "lng": 139.42056204139217,
+      "country": "Japan"
+    },
+    "tour": "SUPER DRY SPECIAL LIVE Organized by ONE OK ROCK"
+  },
+  {
+    "date": "2023.11.14",
+    "dayOfWeek": "TUE",
+    "venue": "東京ドーム with MY FIRST STORY",
+    "location": {
+      "name": "東京ドーム",
+      "lat": 35.70577025389102,
+      "lng": 139.75197712789836,
+      "country": "Japan"
+    },
+    "tour": "VS"
+  },
+  {
+    "date": "2023.09.26",
+    "dayOfWeek": "TUE",
+    "venue": "Manila – Smart Araneta Coliseum",
+    "location": {
+      "name": "Smart Araneta Coliseum",
+      "lat": 14.620874914102956,
+      "lng": 121.05338606783846,
+      "country": "Philippines"
+    },
+    "tour": "LUXURY DISEASE ASIA TOUR 2023"
+  },
+  {
+    "date": "2023.04.05",
+    "dayOfWeek": "WED",
+    "venue": "東京；東京ドーム",
+    "location": {
+      "name": "東京ドーム",
+      "lat": 35.70577025389102,
+      "lng": 139.75197712789836,
+      "country": "Japan"
+    },
+    "tour": "ONE OK ROCK 2023 LUXURY DISEASE JAPAN TOUR"
+  },
+  {
+    "date": "2023.04.04",
+    "dayOfWeek": "TUE",
+    "venue": "東京；東京ドーム",
+    "location": {
+      "name": "東京ドーム",
+      "lat": 35.70577025389102,
+      "lng": 139.75197712789836,
+      "country": "Japan"
+    },
+    "tour": "ONE OK ROCK 2023 LUXURY DISEASE JAPAN TOUR"
+  },
+  {
+    "date": "2023.02.12",
+    "dayOfWeek": "SUN",
+    "venue": "大阪；京セラドーム大阪",
+    "location": {
+      "name": "京セラドーム大阪",
+      "lat": 34.669465605287904,
+      "lng": 135.4765718343116,
+      "country": "Japan"
+    },
+    "tour": "ONE OK ROCK 2023 LUXURY DISEASE JAPAN TOUR"
+  },
+  {
+    "date": "2023.01.29",
+    "dayOfWeek": "SUN",
+    "venue": "愛知；バンテリンドーム ナゴヤ",
+    "location": {
+      "name": "バンテリンドーム ナゴヤ",
+      "lat": 35.18623831386264,
+      "lng": 136.9473867561913,
+      "country": "Japan"
+    },
+    "tour": "ONE OK ROCK 2023 LUXURY DISEASE JAPAN TOUR"
+  },
+  {
+    "date": "2023.01.28",
+    "dayOfWeek": "SAT",
+    "venue": "愛知；バンテリンドーム ナゴヤ",
+    "location": {
+      "name": "バンテリンドーム ナゴヤ",
+      "lat": 35.18623831386264,
+      "lng": 136.9473867561913,
+      "country": "Japan"
+    },
+    "tour": "ONE OK ROCK 2023 LUXURY DISEASE JAPAN TOUR"
+  },
+  {
+    "date": "2021.07.23",
+    "dayOfWeek": "FRI",
+    "venue": "河口湖ステラシアター",
+    "location": {
+      "name": "河口湖ステラシアター",
+      "lat": 35.48051291228432,
+      "lng": 138.75957385487402,
+      "country": "Japan"
+    },
+    "tour": "ONE OK ROCK 2021 \"Day to Night Acoustic Sessions\" at STELLAR THEATER"
+  }
+]
 };
 
 // 野球観戦履歴の構造化データ

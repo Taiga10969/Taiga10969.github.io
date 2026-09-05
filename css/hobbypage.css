@@ -592,60 +592,50 @@ html {
 }
 
 /* モダンな文字ベースのリストデザイン */
-.concert-history-section .tour-item {
-  margin-bottom: 1.8em;
-  padding-bottom: 1.4em;
-  border-bottom: 1px solid rgba(127, 127, 255, 0.12);
-  transition: all 0.3s ease;
-}
-
-.concert-history-section .tour-item:hover {
-  border-bottom-color: rgba(127, 127, 255, 0.25);
-}
-
-.concert-history-section .tour-item:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-.concert-history-section .tour-name {
-  color: #7f7fff;
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 0.8em;
-  padding: 8px 12px;
-  padding-bottom: 0.6em;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  opacity: 0.95;
-  background: linear-gradient(135deg, rgba(127, 127, 255, 0.08) 0%, rgba(127, 127, 255, 0.03) 100%);
-  border-radius: 8px;
-  display: inline-block;
-}
-
 .concert-history-section .concerts-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+.concert-history-section .concert-year-header {
+  list-style: none;
+  margin: 1.4em 0 0.6em;
+  padding: 0 0.2em;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7f7fff;
+}
+
+.concert-history-section .concert-year-header:first-child {
+  margin-top: 0;
+}
+
 .concert-history-section .concert-item {
-  margin-bottom: 0.5em;
-  padding: 0.6em 0.8em;
-  padding-left: 2em;
+  margin-bottom: 0.55em;
+  padding: 0.75em 0.9em;
+  padding-left: 1.8em;
   position: relative;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   color: #4a5568;
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.5;
   border-radius: 8px;
   cursor: pointer;
+  border: 1px solid transparent;
 }
 
 .concert-history-section .concert-item:hover {
   background: linear-gradient(135deg, rgba(127, 127, 255, 0.06) 0%, rgba(127, 127, 255, 0.03) 100%);
-  transform: translateX(4px);
   color: #7f7fff;
+}
+
+.concert-history-section .concert-item.is-active {
+  background: linear-gradient(135deg, rgba(127, 127, 255, 0.12) 0%, rgba(127, 127, 255, 0.06) 100%);
+  border-color: rgba(127, 127, 255, 0.18);
+  box-shadow: inset 3px 0 0 #7f7fff;
 }
 
 .concert-history-section .concert-item::before {
@@ -661,21 +651,37 @@ html {
 
 .concert-history-section .concert-item:hover::before {
   opacity: 1;
-  transform: translateX(4px);
+  color: #6366f1;
+}
+
+.concert-history-section .concert-item.is-active::before {
+  opacity: 1;
   color: #6366f1;
 }
 
 .concert-history-section .concert-date {
+  font-weight: 700;
+  color: #334155;
+  font-size: 14px;
+}
+
+.concert-history-section .concert-item:hover .concert-date,
+.concert-history-section .concert-item.is-active .concert-date {
+  color: #7f7fff;
+}
+
+.concert-history-section .concert-tour {
+  color: #4a5568;
+  font-size: 13px;
+  margin-top: 3px;
   font-weight: 500;
-  color: inherit;
-  font-size: inherit;
 }
 
 .concert-history-section .concert-venue {
-  color: #666;
-  font-size: 12px;
-  margin-top: 2px;
-  font-weight: 400;
+  color: #94a3b8;
+  font-size: 11px;
+  margin-top: 4px;
+  line-height: 1.4;
 }
 
 /* 地図セクションのスタイル */
@@ -683,15 +689,15 @@ html {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  height: 650px;
+  height: 700px;
   width: 100%;
   position: relative;
 }
 
 @media (max-width: 768px) {
   .map-wrapper {
-    height: 400px;
-    min-height: 350px;
+    height: 420px;
+    min-height: 380px;
   }
 }
 
@@ -699,9 +705,41 @@ html {
   width: 100% !important;
   height: 100% !important;
   min-height: 300px;
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
   position: relative;
+  border: 1px solid rgba(127, 127, 255, 0.18);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+}
+
+.map-container .leaflet-container {
+  background: #eef2ff;
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+}
+
+.custom-concert-marker {
+  background: transparent;
+  border: none;
+}
+
+.concert-marker-pin {
+  width: 36px;
+  height: 36px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: linear-gradient(135deg, #7f7fff 0%, #6366f1 100%);
+  border: 3px solid #fff;
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.concert-marker-pin::after {
+  content: '🎵';
+  transform: rotate(45deg);
+  font-size: 15px;
+  line-height: 1;
 }
 
 @media (max-width: 768px) {
@@ -720,17 +758,19 @@ html {
 
 /* カスタムマーカーのポップアップスタイル */
 .leaflet-popup-content-wrapper {
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+  border: 1px solid rgba(127, 127, 255, 0.12);
 }
 
 .leaflet-popup-content {
-  margin: 15px;
+  margin: 16px;
   font-size: 14px;
+  line-height: 1.5;
 }
 
 .concert-popup-title {
-  font-weight: bold;
+  font-weight: 700;
   color: #7f7fff;
   margin-bottom: 8px;
   font-size: 16px;
@@ -750,10 +790,17 @@ html {
   color: #333;
 }
 
-.concert-popup-venue {
-  color: #666;
-  font-size: 12px;
+.concert-popup-tour {
+  color: #4a5568;
+  font-size: 13px;
   margin-top: 2px;
+}
+
+.concert-popup-venue {
+  color: #94a3b8;
+  font-size: 11px;
+  margin-top: 4px;
+  line-height: 1.4;
 }
 
 /* カスタムフラグアイコン */

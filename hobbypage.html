@@ -88,7 +88,7 @@
 
         <div class="map-wrapper">
           <div id="map" class="map-container"></div>
-    </div>
+        </div>
     </div>
     </div>
 </section>
@@ -121,72 +121,67 @@
   crossorigin=""></script>
 
 <!-- Config Data -->
-<script src="hobby_config.js"></script>
+<script src="hobby_config.js?v=20250905b"></script>
 
 <script>
 let mapInstance = null;
 let initialMapSettings = null;
+let tileLayerInstance = null;
 
-// 地図スタイルに応じたタイルレイヤー設定を取得
-function getTileLayerConfig(style, maxZoom, noWrap) {
-  const baseOptions = { maxZoom };
-  if (noWrap) baseOptions.noWrap = true;
-  
-  const styles = {
-    'osm': {
-      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      options: {
-        ...baseOptions,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      }
-    },
-    'cartodb-positron': {
-      url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-      options: {
-        ...baseOptions,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 20
-      }
-    },
-    'cartodb-darkmatter': {
-      url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-      options: {
-        ...baseOptions,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 20
-      }
-    },
-    'stamen-terrain': {
-      url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}{r}.png',
-      options: {
-        ...baseOptions,
-        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        subdomains: 'abcd',
-        maxZoom: 18
-      }
-    },
-    'stamen-toner': {
-      url: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png',
-      options: {
-        ...baseOptions,
-        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        subdomains: 'abcd',
-        maxZoom: 20
-      }
-    },
-    'esri-worldimagery': {
-      url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      options: {
-        ...baseOptions,
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-        maxZoom: 19
+const BLANK_TILE =
+  'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+
+function getSortedConcerts() {
+  return [...CONCERT_HISTORY.concerts].sort((a, b) => b.date.localeCompare(a.date));
+}
+
+function formatConcertDate(concert) {
+  return `${concert.date} (${concert.dayOfWeek})`;
+}
+
+function addOsmTileLayer(map, maxZoom, noWrap) {
+  if (tileLayerInstance) {
+    map.removeLayer(tileLayerInstance);
+  }
+
+  const options = {
+    maxZoom,
+    errorTileUrl: BLANK_TILE,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  };
+  if (noWrap) options.noWrap = true;
+
+  tileLayerInstance = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', options).addTo(map);
+  return tileLayerInstance;
+}
+
+function focusConcertOnMap(lat, lng) {
+  if (!mapInstance) return;
+
+  const clickZoom = CONCERT_HISTORY.mapSettings?.clickZoom || 10;
+  mapInstance.setView([lat, lng], clickZoom, {
+    animate: true,
+    duration: 0.5
+  });
+
+  mapInstance.eachLayer(layer => {
+    if (layer instanceof L.Marker) {
+      const markerLat = layer.getLatLng().lat;
+      const markerLng = layer.getLatLng().lng;
+      if (Math.abs(markerLat - lat) < 0.0001 && Math.abs(markerLng - lng) < 0.0001) {
+        layer.openPopup();
+      } else {
+        layer.closePopup();
       }
     }
-  };
-  
-  return styles[style] || styles['osm'];
+  });
+}
+
+function setInitialJapanView(map, mapSettings) {
+  const initialZoom = mapSettings.initialZoom || 5;
+  const initialCenter = mapSettings.initialCenter || { lat: 36.2048, lng: 138.2529 };
+  map.setView([initialCenter.lat, initialCenter.lng], initialZoom, { animate: false });
+  return { center: initialCenter, zoom: initialZoom };
 }
 
 // コンサート履歴の動的レンダリング
@@ -204,109 +199,82 @@ function renderConcertHistory() {
   
   if (!container) return;
   container.innerHTML = '';
-  
-  // リストからマウスが離れたときに地図をリセット（リスト内での移動ではリセットしない）
-  container.addEventListener('mouseleave', e => {
-    if (!mapInstance || !initialMapSettings) return;
-    
-    const relatedTarget = e.relatedTarget;
-    if (relatedTarget && container.contains(relatedTarget)) return;
-    
-    mapInstance.setView(
-      [initialMapSettings.center.lat, initialMapSettings.center.lng],
-      initialMapSettings.zoom,
-      { animate: true, duration: 0.5 }
-    );
-    
-    mapInstance.eachLayer(layer => {
-      if (layer instanceof L.Marker) layer.closePopup();
-    });
-  });
-  
-  CONCERT_HISTORY.tours.forEach(tour => {
-    const tourDiv = document.createElement('div');
-    tourDiv.className = 'tour-item';
-    
-    const tourName = document.createElement('div');
-    tourName.className = 'tour-name';
-    tourName.textContent = tour.name;
-    
-    const concertsList = document.createElement('ul');
-    concertsList.className = 'concerts-list';
-    
-    tour.concerts.forEach(concert => {
-      const concertItem = document.createElement('li');
-      concertItem.className = 'concert-item';
-      
-      concertItem.setAttribute('data-lat', concert.location.lat);
-      concertItem.setAttribute('data-lng', concert.location.lng);
-      
-      const concertDate = document.createElement('span');
-      concertDate.className = 'concert-date';
-      concertDate.textContent = concert.fullText;
-      
-      concertItem.addEventListener('mouseenter', function() {
-        if (!mapInstance) return;
-        
-        const lat = parseFloat(this.getAttribute('data-lat'));
-        const lng = parseFloat(this.getAttribute('data-lng'));
-        const hoverZoom = CONCERT_HISTORY.mapSettings?.hoverZoom || 12;
-        
-        mapInstance.setView([lat, lng], hoverZoom, {
-          animate: true,
-          duration: 0.5
-        });
-        
-        mapInstance.eachLayer(layer => {
-          if (layer instanceof L.Marker) {
-            const markerLat = layer.getLatLng().lat;
-            const markerLng = layer.getLatLng().lng;
-            if (Math.abs(markerLat - lat) < 0.0001 && Math.abs(markerLng - lng) < 0.0001) {
-              layer.openPopup();
-            }
-          }
-        });
+
+  const concertsList = document.createElement('ul');
+  concertsList.className = 'concerts-list';
+
+  let lastYear = null;
+  getSortedConcerts().forEach(concert => {
+    const year = concert.date.split('.')[0];
+    if (year !== lastYear) {
+      const yearHeader = document.createElement('li');
+      yearHeader.className = 'concert-year-header';
+      yearHeader.textContent = year;
+      concertsList.appendChild(yearHeader);
+      lastYear = year;
+    }
+
+    const concertItem = document.createElement('li');
+    concertItem.className = 'concert-item';
+
+    concertItem.setAttribute('data-lat', concert.location.lat);
+    concertItem.setAttribute('data-lng', concert.location.lng);
+
+    const concertDate = document.createElement('div');
+    concertDate.className = 'concert-date';
+    concertDate.textContent = formatConcertDate(concert);
+
+    const concertVenue = document.createElement('div');
+    concertVenue.className = 'concert-venue';
+    concertVenue.textContent = concert.venue;
+
+    const concertTour = document.createElement('div');
+    concertTour.className = 'concert-tour';
+    concertTour.textContent = concert.tour;
+
+    concertItem.addEventListener('click', function() {
+      container.querySelectorAll('.concert-item').forEach(item => {
+        item.classList.remove('is-active');
       });
-      
-      concertItem.appendChild(concertDate);
-      concertsList.appendChild(concertItem);
+      this.classList.add('is-active');
+
+      const lat = parseFloat(this.getAttribute('data-lat'));
+      const lng = parseFloat(this.getAttribute('data-lng'));
+      focusConcertOnMap(lat, lng);
     });
-    
-    tourDiv.appendChild(tourName);
-    tourDiv.appendChild(concertsList);
-    container.appendChild(tourDiv);
+
+    concertItem.appendChild(concertDate);
+    concertItem.appendChild(concertTour);
+    concertItem.appendChild(concertVenue);
+    concertsList.appendChild(concertItem);
   });
+
+  container.appendChild(concertsList);
 }
 
 // 地図の初期化とマーカー配置
 function initMap() {
   const mapSettings = CONCERT_HISTORY.mapSettings || {};
-  const initialZoom = mapSettings.initialZoom || 4;
-  const initialCenter = mapSettings.initialCenter || { lat: 36.2048, lng: 138.2529 };
   const maxZoom = mapSettings.maxZoom || 19;
   const worldCopyJump = mapSettings.worldCopyJump ?? true;
   const limitMapToSingleWorld = mapSettings.limitMapToSingleWorld ?? false;
-  
-  initialMapSettings = { center: initialCenter, zoom: initialZoom };
   
   const mapOptions = limitMapToSingleWorld ? {
     maxBounds: [[-90, -180], [90, 180]],
     minZoom: 2
   } : {};
   
-  mapInstance = L.map('map', mapOptions).setView([initialCenter.lat, initialCenter.lng], initialZoom);
+  mapInstance = L.map('map', mapOptions);
   const map = mapInstance;
+  initialMapSettings = setInitialJapanView(map, mapSettings);
   
-  // 地図スタイルに応じたタイルレイヤーを取得
-  const mapStyle = mapSettings.mapStyle || 'osm';
-  const tileLayerConfig = getTileLayerConfig(mapStyle, maxZoom, limitMapToSingleWorld);
-  
-  L.tileLayer(tileLayerConfig.url, tileLayerConfig.options).addTo(map);
+  addOsmTileLayer(map, maxZoom, limitMapToSingleWorld);
   
   // モバイルでの表示を確実にするため、少し遅延してサイズを再計算
   setTimeout(() => {
     if (mapInstance) {
       mapInstance.invalidateSize();
+      setInitialJapanView(mapInstance, mapSettings);
     }
   }, 100);
   
@@ -321,35 +289,37 @@ function initMap() {
   
   // 位置情報を集約（同じ場所のコンサートをグループ化）
   const locationGroups = {};
-  CONCERT_HISTORY.tours.forEach(tour => {
-    tour.concerts.forEach(concert => {
-      const key = `${concert.location.lat},${concert.location.lng}`;
-      if (!locationGroups[key]) {
-        locationGroups[key] = { location: concert.location, concerts: [] };
-      }
-      locationGroups[key].concerts.push({
-        tour: tour.name,
-        fullText: concert.fullText
-      });
+  CONCERT_HISTORY.concerts.forEach(concert => {
+    const key = `${concert.location.lat},${concert.location.lng}`;
+    if (!locationGroups[key]) {
+      locationGroups[key] = { location: concert.location, concerts: [] };
+    }
+    locationGroups[key].concerts.push({
+      tour: concert.tour,
+      dateLabel: formatConcertDate(concert),
+      venue: concert.venue,
+      date: concert.date
     });
   });
   
   const concertIcon = L.divIcon({
     className: 'custom-concert-marker',
-    html: '<div style="background-color: #7f7fff; border: 3px solid white; border-radius: 50%; width: 30px; height: 30px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px;">🎵</div>',
-    iconSize: [30, 30],
-    iconAnchor: [15, 30],
-    popupAnchor: [0, -30]
+    html: '<div class="concert-marker-pin"></div>',
+    iconSize: [36, 36],
+    iconAnchor: [18, 36],
+    popupAnchor: [0, -36]
   });
   
   Object.values(locationGroups).forEach(group => {
     const { location, concerts } = group;
-    
+    concerts.sort((a, b) => b.date.localeCompare(a.date));
+
     let popupContent = `<div class="concert-popup-title">${location.name}</div><div style="margin-top: 10px;">`;
     concerts.forEach((concert, index) => {
       popupContent += `<div class="concert-popup-item">
-        <div class="concert-popup-date">${concert.fullText}</div>
-        <div class="concert-popup-venue">${concert.tour}</div>
+        <div class="concert-popup-date">${concert.dateLabel}</div>
+        <div class="concert-popup-tour">${concert.tour}</div>
+        <div class="concert-popup-venue">${concert.venue}</div>
       </div>`;
       if (index < concerts.length - 1) {
         popupContent += '<hr style="margin: 5px 0; border: none; border-top: 1px solid #eee;">';
@@ -362,8 +332,7 @@ function initMap() {
       worldCopyJump: worldCopyJump
     })
       .addTo(map)
-      .bindPopup(popupContent, { maxWidth: 300, className: 'concert-popup' })
-      .on('mouseover', function() { this.openPopup(); });
+      .bindPopup(popupContent, { maxWidth: 300, className: 'concert-popup' });
   });
 }
 
